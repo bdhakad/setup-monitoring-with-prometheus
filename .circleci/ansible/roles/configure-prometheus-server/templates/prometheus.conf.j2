@@ -1,0 +1,25 @@
+global:
+  scrape_interval: 15s
+  external_labels:
+    monitor: 'prometheus'
+    
+rule_files:
+  - alertrules.yml 
+
+alerting:
+  alertmanagers:
+  - static_configs:
+    - targets: ['localhost:9093']  
+
+scrape_configs:
+  - job_name: 'prometheus'
+    static_configs:
+      - targets: ['localhost:9090']
+
+  - job_name: 'node'
+    ec2_sd_configs:
+      - region: your_aws_region
+        access_key: your_access_key
+        secret_key: your_secret_key
+        port: 9100
+     
