@@ -21,7 +21,10 @@ commands:
 workflows:
   default:
     jobs:
-      - create-monitoring-server
+      - create-monitoring-server:
+          filters:
+            branches:
+              only: [master]
       - configure-monitoring-server:
           requires:
             - create-monitoring-server
